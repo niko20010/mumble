@@ -675,10 +675,10 @@ bool AudioInput::selectCodec() {
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer) {
 	int len = 0;
 #ifdef USE_OPUS
-	if (!bPreviousVoice)
+	if (!bPreviousVoice){
 		opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
-
-	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
+		opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
+	}
 
 	len = opus_encode(opusState, source, size, &buffer[0], buffer.size());
 	const int tenMsFrameCount = (size / iFrameSize);
